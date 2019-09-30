@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
       @movies = Movie.order('title asc')
       @title_hilite = 'hilite'
     when 'release_date'
-      @movies = Movie.order('title asc')
+      @movies = Movie.order('release_date asc')
       @release_date_hilite = 'hilite'
     else
       @movies = Movie.all
