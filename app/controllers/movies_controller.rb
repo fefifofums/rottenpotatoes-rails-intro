@@ -47,6 +47,7 @@ class MoviesController < ApplicationController
     when 'title'
       @movies = Movie.order('title asc')
       @title_hilite = 'hilite'
+    end
   end
 
 end
