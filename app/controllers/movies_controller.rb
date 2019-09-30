@@ -44,7 +44,7 @@ class MoviesController < ApplicationController
   
   def sort
     @sort_by = params[:sort]
-    flash[:notice] = '#{@sort_by'
+    flash[:notice] = '#{@sort_by}'
     @movies = Movie.order("#{@sort_by} asc")
     @title_hilite = 'hilite'
   end
