@@ -1,4 +1,4 @@
-table th {
+table#movies th.titles {
   background-color: yellow;
 }
 
