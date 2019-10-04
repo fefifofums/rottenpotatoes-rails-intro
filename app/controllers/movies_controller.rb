@@ -23,13 +23,14 @@ class MoviesController < ApplicationController
     
     case params[:sort]
     when 'title'
-      @movies = Movie.where("rating in (?)", @chosen_ratings).order('title asc')
+      @movies = Movie.where("rating in (?)", session[:current_ratings]).order('title asc')
       @title_hilite = 'hilite'
     when 'release_date'
-      @movies = Movie.where("rating in (?)", @chosen_ratings).order('release_date asc')
+      @movies = Movie.where("rating in (?)", session[:current_ratings]).order('release_date asc')
       @release_date_hilite = 'hilite'
     else
       @movies = Movie.where("rating in (?)", @chosen_ratings)
+      session[:current_ratings] = @chosen_ratings
     end
   end
 
