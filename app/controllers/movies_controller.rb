@@ -11,6 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @all_ratings = Movie.possible_ratings
     @chosen_ratings = @possible_ratings
     
     if params[:ratings]
