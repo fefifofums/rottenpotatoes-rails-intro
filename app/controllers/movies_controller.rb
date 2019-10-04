@@ -29,8 +29,7 @@ class MoviesController < ApplicationController
       @movies = Movie.where("rating in (?)", @chosen_ratings).order('release_date asc')
       @release_date_hilite = 'hilite'
     else
-      @movies = Movie.all
-      @chosen_ratings = params[:ratings].keys
+      @movies = Movie.where("rating in (?)", @chosen_ratings)
     end
   end
 
