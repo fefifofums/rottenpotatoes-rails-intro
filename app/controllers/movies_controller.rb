@@ -17,21 +17,20 @@ class MoviesController < ApplicationController
     if params[:ratings]
       if params[:ratings].keys.length > 0
         @chosen_ratings = params[:ratings].keys
-        @movies = Movie.where(rating: @chosen_ratings)
+        #@movies = Movie.where(rating: @chosen_ratings)
       end
     end
     
     case params[:sort]
     when 'title'
-      @movies = Movie.where(["rating in (?)"]).order('title asc')
+      @movies = Movie.where("rating in (?)", @chosen_ratings).order('title asc')
       @title_hilite = 'hilite'
     when 'release_date'
-      @movies = Movie.where(["rating in (?)"]).order('release_date asc')
+      @movies = Movie.where("rating in (?)", @chosen_ratings).order('release_date asc')
       @release_date_hilite = 'hilite'
     else
       @movies = Movie.all
-      
-      #@chosen_ratings = params[:ratings].keys
+      @chosen_ratings = params[:ratings].keys
     end
   end
 
