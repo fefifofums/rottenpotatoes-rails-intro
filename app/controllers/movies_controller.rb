@@ -14,23 +14,37 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.possible_ratings
     @chosen_ratings = @all_ratings
     
-    if params[:ratings]
-      if params[:ratings].keys.length > 0
-        @chosen_ratings = params[:ratings].keys
-        #@movies = Movie.where(rating: @chosen_ratings)
-      end
+    if !session[:current_ratings].nil?
+      @chosen_ratings = session[:current_ratings]
+    end
+    if params[:ratings].present?
+      @chosen_ratings = params[:ratings].keys
+      session[:current_ratings] = @chosen_ratings
     end
     
-    case params[:sort]
+    
+    if !session[:sort].nil?
+      @chosen_sort = session[:sort]
+    end
+    if params[:sort].present?
+      @chosen_sort = params[:sort]
+      session[:sort] = @chosen_sort
+    end
+      
+    
+    case @chosen_sort
     when 'title'
-      @movies = Movie.where("rating in (?)", session[:current_ratings]).order('title asc')
+      @movies = Movie.where("rating in (?)", @chosen_ratings).order('title asc')
       @title_hilite = 'hilite'
+      puts "here"
     when 'release_date'
-      @movies = Movie.where("rating in (?)", session[:current_ratings]).order('release_date asc')
+      @movies = Movie.where("rating in (?)", @chosen_ratings).order('release_date asc')
       @release_date_hilite = 'hilite'
+      puts "there"
     else
       @movies = Movie.where("rating in (?)", @chosen_ratings)
-      session[:current_ratings] = @chosen_ratings
+      #session[:current_ratings] = @chosen_ratings
+      puts "else"
     end
   end
 
@@ -62,6 +76,4 @@ class MoviesController < ApplicationController
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
-  
-
 end
