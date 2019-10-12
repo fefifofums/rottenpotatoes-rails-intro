@@ -4,8 +4,9 @@
   Include:
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]", 1, @chosen_ratings.include?(rating)
-  = submit_tag 'Refresh', :id => "ratings_submit"
+    -#https://stackoverflow.com/questions/18323342/nomethoderror-at-undefined-method-include-for-nilnilclass
+    = check_box_tag "ratings[#{rating}]", 1, if @chosen_ratings.nil?; true else @chosen_ratings.include?(rating) end
+  = submit_tag 'Refresh'
 
 %table#movies.table.table-striped.col-md-12
   %thead
