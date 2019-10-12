@@ -36,15 +36,11 @@ class MoviesController < ApplicationController
     when 'title'
       @movies = Movie.where("rating in (?)", @chosen_ratings).order('title asc')
       @title_hilite = 'hilite'
-      puts "here"
     when 'release_date'
       @movies = Movie.where("rating in (?)", @chosen_ratings).order('release_date asc')
       @release_date_hilite = 'hilite'
-      puts "there"
     else
       @movies = Movie.where("rating in (?)", @chosen_ratings)
-      #session[:current_ratings] = @chosen_ratings
-      puts "else"
     end
   end
 
